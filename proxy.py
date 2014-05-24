@@ -22,6 +22,7 @@ def convert_response(r):
     def generate():
         for chunk in r.iter_content(CHUNK_SIZE):
             yield chunk
+    headers['Access-Control-Allow-Origin'] = '*'
     return Response(generate(), headers=headers)
 
 @app.route('/tempodb/<path:path>')
