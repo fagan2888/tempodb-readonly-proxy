@@ -28,6 +28,7 @@ def convert_response(r):
 @app.route('/tempodb/<path:path>')
 def proxy_get(path):
     response = client.session.get(path + '?' + request.query_string)
+    print("GET {}".format(path))
     return convert_response(response)
 
 if __name__ == '__main__':
