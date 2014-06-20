@@ -23,12 +23,11 @@ def convert_response(r):
         for chunk in r.iter_content(CHUNK_SIZE):
             yield chunk
     headers['Access-Control-Allow-Origin'] = '*'
-    return Response(generate(), headers=headers)
+    return Response(generate(), status=r.status_code, headers=headers)
 
 @app.route('/tempodb/<path:path>')
 def proxy_get(path):
     response = client.session.get(path + '?' + request.query_string)
-    print("GET {}".format(path))
     return convert_response(response)
 
 if __name__ == '__main__':
